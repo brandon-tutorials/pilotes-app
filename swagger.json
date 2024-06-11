@@ -1,0 +1,202 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "OpenAPI definition",
+      "version": "v0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8080",
+        "description": "Generated server url"
+      }
+    ],
+    "paths": {
+      "/api/pilotes/saveOrder": {
+        "post": {
+          "tags": [
+            "pilotes-controller"
+          ],
+          "operationId": "saveOrder",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SaveOrderRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/pilotes/startsWithName/{name}": {
+        "get": {
+          "tags": [
+            "pilotes-controller"
+          ],
+          "operationId": "findByNameStartWith",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/UserDTO"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/pilotes/getAll": {
+        "get": {
+          "tags": [
+            "pilotes-controller"
+          ],
+          "operationId": "getAllUsers",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/UserDTO"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/pilotes/containsName/{name}": {
+        "get": {
+          "tags": [
+            "pilotes-controller"
+          ],
+          "operationId": "findByNameContains",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/UserDTO"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "SaveOrderRequest": {
+          "required": [
+            "deliveryAddress",
+            "numberOfPilotes",
+            "userId"
+          ],
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "deliveryAddress": {
+              "type": "string"
+            },
+            "numberOfPilotes": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "OrderDTO": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "deliveryAddress": {
+              "type": "string"
+            },
+            "numberOfPilotes": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "orderTotal": {
+              "type": "number"
+            },
+            "status": {
+              "type": "boolean"
+            }
+          }
+        },
+        "UserDTO": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "orders": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/OrderDTO"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
